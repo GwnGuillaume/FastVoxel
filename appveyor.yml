@@ -23,14 +23,15 @@ environment:
 #      GEOS_VERSION: "3.8.1"
 
 init:
-- cmd: SET PATH=c:\python36;c:\python36\Scripts;C:\Program Files\Git\cmd;C:\Program Files (x86)\7-Zip\;C:\Program Files\Git\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\
-
-install:
-- cd C:\Tools\vcpkg
-- git pull
-- .\bootstrap-vcpkg.bat
-- cd %APPVEYOR_BUILD_FOLDER%
-
+- cmd: >-
+    SET PATH=c:\python36;c:\python36\Scripts;C:\Program Files\Git\cmd;C:\Program Files (x86)\7-Zip\;C:\Program Files\Git\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\
+    cd FastVoxel
+    mkdir build
+    cd build
 
 build_script:
-- call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+- cmake ..
+- make
+
+artifacts:
+- path: build\exe.win32-3.6\
